@@ -9,7 +9,7 @@ class Login{
     string username;
     string password;
     Login(string n, string u, string pass):
-    name(n),username(n),password(pass){}
+    name(n),username(u),password(pass){}
 
 };
 
