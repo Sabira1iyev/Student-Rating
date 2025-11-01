@@ -23,18 +23,28 @@ class Teacher: public Login{
     string getTeacherlessonName(){
         return TeacherlessonName;
     }
-
+    void Display(){
+        cout << "Teacher's name: " << name << endl;
+        cout << "Which Lesson: " << TeacherlessonName << endl;
+    }
 };
 
+class Student: public Login{
+    private:
+        vector<pair<string, double>> grades;
+        public:
+        Student(string n, string u, string p):
+            Login(n,u,p){}
+};
 
 
 
 int main(){
 string username = "Sabir ALiyev";
-int password = 12345678;
+string password = "12345678";
 
 string usName;
-int pass;
+string pass;
 
 cout << "Enter username: ";
 getline(cin, usName);
@@ -47,5 +57,4 @@ if(usName == username && pass == password){
 else{
     cout << "Wrong password, try again" << endl;
 }
-
 }
