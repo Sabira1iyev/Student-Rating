@@ -1,17 +1,27 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 class Login{
     public:
     string name;
      string password;
+     Login(){
+        name = "user12345";
+        password = "0";
+     }
     Login(string n, string pass):
     name(n),password(pass){}
     
     virtual void Display(){
         cout << "User: " << name << endl;
+    }
+    bool controlLogin(string n, string p){
+        if(n == name && p == password){
+            return true;
+        }
     }
 };
 
@@ -46,6 +56,7 @@ class Student: public Login{
 
 
 int main(){
+Login L;
 string username = "Sabir ALiyev";
 string password = "12345678";
 
@@ -57,12 +68,6 @@ getline(cin, usName);
 cout << "Enter password: ";
 cin >> pass;
 
-if(usName == username && pass == password){
-    cout << "Success" << endl;
-    Teacher T1("James", "12444", "Mathmematic");
-    T1.Display();
-}
-else{
-    cout << "Wrong password, try again" << endl;
-}
+L.controlLogin(usName,pass);
+
 }
