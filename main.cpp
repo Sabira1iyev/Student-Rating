@@ -10,7 +10,7 @@ class Login{
      string password;
      Login(){
         name = "user12345";
-        password = "0";
+        password = "";
      }
     Login(string n, string pass):
     name(n),password(pass){}
@@ -22,6 +22,10 @@ class Login{
         if(n == name && p == password){
             return true;
         }
+        else{
+            return false;
+        }
+        
     }
 };
 
@@ -56,9 +60,10 @@ class Student: public Login{
 
 
 int main(){
-Login L;
 string username = "Sabir ALiyev";
 string password = "12345678";
+
+Login L("Sabir ALiyev", "12345678");
 
 string usName;
 string pass;
@@ -68,6 +73,11 @@ getline(cin, usName);
 cout << "Enter password: ";
 cin >> pass;
 
-L.controlLogin(usName,pass);
+if(L.controlLogin(usName,pass)){
+    cout << "Success, Hello " << usName << endl;
+}
+else {
+    cout << "Wrong password or username, try again! " << endl;  
+}
 
 }
