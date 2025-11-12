@@ -43,6 +43,9 @@ class Teacher: public Login{
         cout << "Teacher's name: " << name << endl;
         cout << "Which Lesson: " << TeacherlessonName << endl;
     }
+     void givePointStudent(){
+        cout << "Do you want a give point to students? " << endl;
+     }
 };
 
 class Student: public Login{
@@ -60,24 +63,47 @@ class Student: public Login{
 
 
 int main(){
-string username = "Sabir ALiyev";
-string password = "12345678";
+    string username, password;
 
-Login L("Sabir ALiyev", "12345678");
+    cout << "enter username: ";
+    cin >> username;
+    cout << "enter your password: ";
+    cin >> password;
 
-string usName;
-string pass;
+    ifstream tfile("teachers.txt");
+    ifstream sfile("students.txt");
 
-cout << "Enter username: ";
-getline(cin, usName);
-cout << "Enter password: ";
-cin >> pass;
+    string n,p,lesson;
+    bool found = false;
 
-if(L.controlLogin(usName,pass)){
-    cout << "Success, Hello " << usName << endl;
-}
-else {
-    cout << "Wrong password or username, try again! " << endl;  
-}
+    while(tfile >> n >> p >> lesson){
+        if(n==username && p == password){
+            Teacher t(n,p,lesson);
+            cout << "Hello teacher " << t.name << endl;
+            t.Display();
+            t.givePointStudent();
+            found =true;
+            break;
+        }
+    }
+    if(!found){
+        while(sfile >> n >> p){
+            if(n == password && p == password){
+                Student s(n,p);
+                cout << "HI! user: " << s.name << endl;
+                s.Display();
+                found=true;
+                break;
+            }
+        }
+    } 
+    if(!found){
+        cout << "Username or password incorrect! Try again!" << endl;
+    
+        tfile.close();
+        sfile.close();
+    }
+
+    
 
 }
