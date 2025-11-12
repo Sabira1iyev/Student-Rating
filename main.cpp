@@ -44,7 +44,16 @@ class Teacher: public Login{
         cout << "Which Lesson: " << TeacherlessonName << endl;
     }
      void givePointStudent(){
+        char y = 'Y', x = 'X';
+        string answer;
         cout << "Do you want a give point to students? " << endl;
+        cin >> answer;
+        // switch(answer){
+        //     case 'Y':
+        //     case 'y':
+
+
+       // }
      }
 };
 
