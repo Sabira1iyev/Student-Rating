@@ -45,24 +45,35 @@ class Teacher: public Login{
     }
      void givePointStudent(){
         char y = 'Y', x = 'X';
-        string answer;
+        char answer;
+        string stuName;
+        double addScore;
         cout << "Do you want a give point to students? " << endl;
         cin >> answer;
-        // switch(answer){
-        //     case 'Y':
-        //     case 'y':
+         switch(answer){
+            case 'Y' : 
+            case 'y': cout << "Which student do you want to give points? ";
+                        cin >> stuName;
+                      cout << "How many points do you want to add? ";
+                        cin >>addScore;
+                    ifstream file("students.txt");
+                    vector<Student>students;
+                
+                    string n, p;
+                    double sc;
 
 
-       // }
+       }
      }
 };
 
 class Student: public Login{
     private:
+        double score;
         vector<pair<string, double>> grades;
         public:
-        Student(string n, string p):
-            Login(n,p){}
+        Student(string n, string p,double sc):
+            Login(n,p), score(sc){}
         
             void Display()override{
                 cout << "Student's name: " << name << endl;
@@ -73,7 +84,7 @@ class Student: public Login{
 
 int main(){
     string username, password;
-
+    double score;
     cout << "enter username: ";
     cin >> username;
     cout << "enter your password: ";
@@ -96,9 +107,9 @@ int main(){
         }
     }
     if(!found){
-        while(sfile >> n >> p){
-            if(n == password && p == password){
-                Student s(n,p);
+        while(sfile >> n >> p >> score){
+            if(n == username && p == password){
+                Student s(n,p, score);
                 cout << "HI! user: " << s.name << endl;
                 s.Display();
                 found=true;
