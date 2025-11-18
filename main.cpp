@@ -29,6 +29,28 @@ class Login{
     }
 };
 
+class Student: public Login{
+    private:
+        double score;
+        vector<pair<string, double>> grades;
+        public:
+        Student(string n, string p,double sc):
+            Login(n,p), score(sc){}
+
+            double getScore(){
+                return score;
+            }
+            void addScore(double x){
+                score += x;
+            }
+        
+            void Display()override{
+                cout << "Student's name: " << name << endl;
+             }
+};
+
+
+
 class Teacher: public Login{
     private:
     string TeacherlessonName;
@@ -46,39 +68,62 @@ class Teacher: public Login{
      void givePointStudent(){
         char y = 'Y', x = 'X';
         char answer;
-        string stuName;
-        double addScore;
         cout << "Do you want a give point to students? " << endl;
         cin >> answer;
          switch(answer){
             case 'Y' : 
-            case 'y': cout << "Which student do you want to give points? ";
+            case 'y': 
+            {
+
+                string stuName;
+                double addScore;
+            cout << "Which student do you want to give points? ";
                         cin >> stuName;
                       cout << "How many points do you want to add? ";
                         cin >>addScore;
-                    ifstream file("students.txt");
+                    ifstream sFile("students.txt");
                     vector<Student>students;
                 
                     string n, p;
                     double sc;
 
-
-       }
-     }
+                    while(sFile >> n >> p >> sc){
+                        students.emplace_back(n,p,sc);
+                    }
+                    sFile.close();
+                    
+                    bool found = false;
+                for(auto &st:students){
+                    if(st.name == stuName){
+                        st.addScore(addScore);
+                        found = true;
+                    
+                        cout << "New score of " << stuName << 
+                        " is " << st.getScore();
+                }
+            }
+            if(!found){
+                cout <<"Student not found!" << endl;
+                return;
+            }
+            ofstream ofs("students.txt");
+            for(auto &st: students){
+                ofs << st.name << " "  << st.password << st.getScore() << endl;
+            }
+            ofs.close();
+            break;
+            }
+            case 'N':
+            case 'n':
+                    cout << "Ok, NO changes! " << endl;
+                    break;
+            default:
+                    cout <<  "Invalid choice!" << endl;
+                    break;
+        }
+    }
 };
 
-class Student: public Login{
-    private:
-        double score;
-        vector<pair<string, double>> grades;
-        public:
-        Student(string n, string p,double sc):
-            Login(n,p), score(sc){}
-        
-            void Display()override{
-                cout << "Student's name: " << name << endl;
-             }
-};
 
 
 
